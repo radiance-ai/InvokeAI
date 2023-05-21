@@ -16,7 +16,7 @@ from pydantic.schema import schema
 
 from ..backend import Args
 from .api.dependencies import ApiDependencies
-from .api.routers import image_files, image_records, sessions, models
+from .api.routers import image_files, image_records, sessions, models, images
 from .api.sockets import SocketIO
 from .invocations.baseinvocation import BaseInvocation
 
@@ -76,12 +76,13 @@ async def shutdown_event():
 
 app.include_router(sessions.session_router, prefix="/api")
 
-app.include_router(image_files.image_files_router, prefix="/api")
-
 app.include_router(models.models_router, prefix="/api")
+
+app.include_router(image_files.image_files_router, prefix="/api")
 
 app.include_router(image_records.image_records_router, prefix="/api")
 
+app.include_router(images.images_router, prefix="/api")
 
 # Build a custom OpenAPI to include all outputs
 # TODO: can outputs be included on metadata of invocation schemas somehow?
