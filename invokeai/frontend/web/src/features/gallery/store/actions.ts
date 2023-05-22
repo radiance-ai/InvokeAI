@@ -1,7 +1,7 @@
 import { createAction } from '@reduxjs/toolkit';
-import { Image } from 'app/types/invokeai';
-import { SelectedImage } from 'features/parameters/store/actions';
+import { ImageNameAndType } from 'features/parameters/store/actions';
+import { ImageDTO } from 'services/api';
 
 export const requestedImageDeletion = createAction<
-  Image | SelectedImage | undefined
+  ImageDTO | ImageNameAndType | undefined
 >('gallery/requestedImageDeletion');
