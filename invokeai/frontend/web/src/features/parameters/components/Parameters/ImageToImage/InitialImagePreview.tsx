@@ -1,7 +1,6 @@
 import { Flex, Icon, Image } from '@chakra-ui/react';
 import { createSelector } from '@reduxjs/toolkit';
 import { useAppDispatch, useAppSelector } from 'app/store/storeHooks';
-import SelectImagePlaceholder from 'common/components/SelectImagePlaceholder';
 import { useGetUrl } from 'common/util/getUrl';
 import { clearInitialImage } from 'features/parameters/store/generationSlice';
 import { addToast } from 'features/system/store/systemSlice';
@@ -49,7 +48,7 @@ const InitialImagePreview = () => {
       const name = e.dataTransfer.getData('invokeai/imageName');
       const type = e.dataTransfer.getData('invokeai/imageType') as ImageType;
 
-      dispatch(initialImageSelected({ name, type }));
+      dispatch(initialImageSelected({ image_name: name, image_type: type }));
     },
     [dispatch]
   );
@@ -65,10 +64,10 @@ const InitialImagePreview = () => {
       }}
       onDrop={handleDrop}
     >
-      {initialImage?.url && (
+      {initialImage?.image_url && (
         <>
           <Image
-            src={getUrl(initialImage?.url)}
+            src={getUrl(initialImage?.image_url)}
             fallbackStrategy="beforeLoadOrError"
             fallback={<ImageFallbackSpinner />}
             onError={onError}
@@ -84,7 +83,7 @@ const InitialImagePreview = () => {
           <ImageMetadataOverlay image={initialImage} />
         </>
       )}
-      {!initialImage?.url && (
+      {!initialImage?.image_url && (
         <Icon
           as={FaImage}
           sx={{
